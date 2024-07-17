@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="promise.css">
+    <title>Promise Example</title>
+</head>
+<body>
+   
+
+    <h1> Please click Inspect to see the Working of Promise</h1>
+    <script>
+        
+        function getStudentDetail() {
+            return new Promise((resolve,reject) => {
+                setTimeout(() => {
+ 
+                const func1 = true;
+
+          if (func1)
+               {   resolve({
+                        name: 'John Doe',
+                        Id: '12345'
+                    });
+               }
+
+            else 
+               {
+                    reject("Data not received");
+                }
+                }, 1000);
+            });
+        }
+
+        function getDocument() {
+            return new Promise((resolve,reject) => {
+                setTimeout(() => {
+                    
+                  const func2= true;
+
+                  if(func2)
+                {
+                  resolve({
+                        vehicleDocument: 'Vehicle Registration',
+                        LicenceNumber: 'ABC123456'
+                    });
+                  }
+
+                  else
+                  {
+                     reject ("failed");
+                  }
+                }, 6000); 
+            });
+        }
+
+       
+        function getInsuranceDetail() {
+            return new Promise((resolve,reject) => {
+                setTimeout(() => {
+                   
+                  const func3=true;
+                  
+                  if (func3)
+                {
+                  resolve({
+                        issueDate: '2023-01-01',
+                        OwnerName: 'John Doe'
+                    });
+
+                }
+
+                else 
+                {
+                  reject("Failed");
+                }
+                }, 6000); // Assume it takes 500ms
+            });
+        }
+
+        
+      
+            getStudentDetail()
+                .then(studentDetail => {
+                    console.log('Student Detail:', studentDetail);
+
+                    // Execute getDocument and getInsuranceDetail in parallel
+                    return Promise.all([getDocument(), getInsuranceDetail()]);
+                })
+                .then(([documentDetail, insuranceDetail]) => {
+                    console.log('Document Detail:', documentDetail);
+                    console.log('Insurance Detail:', insuranceDetail);
+                })
+                .catch(error => {
+                    console.error('An error occurred:', error);
+                });
+        
+
+       
+    </script>
+</body>
+</html>
